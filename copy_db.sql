@@ -1,3 +1,7 @@
+/*
+Login to MySQL then simply run "source copy_db.sql ;"
+*/ 
+
 CREATE DATABASE earsapp411_EARS_SQL;
 
 USE earsapp411_EARS_SQL;
