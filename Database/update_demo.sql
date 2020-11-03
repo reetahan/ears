@@ -1,9 +1,10 @@
 DELIMITER //
 CREATE PROCEDURE UPDATE_DEMO(
-    IN Name_ VARCHAR(100),
-    IN Date_ DATETIME,
+    name_ VARCHAR(100),
+    date_ VARCHAR(100)
     )
     BEGIN
-    	UPDATE Event SET DueDate = Date_ WHERE EventName = Name_ ;
-    END;
+    	SET @convertedDate = STR_TO_DATE(date_ , "%m-%d-%Y %H:%i") ;
+    	UPDATE Event SET DueDate = @convertedDate WHERE EventName = Name_ ;
+    END //
 DELIMITER ;
