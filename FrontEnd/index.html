@@ -1,86 +1,166 @@
-const urlBase = 'http://earsapp411.web.illinois.edu/query';
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>Home</title>
 
-function makeTable(jsObj) {
-  let prettifiedString = JSON.stringify(jsObj, null, '\t');
-  document.getElementById('databasebox').innerHTML = prettifiedString.replaceAll('\n', '<br>');
-}
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/starter-template/">
 
-function sendPostRequest(params) {
-  opts = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify(params)
-  };
-  fetch(urlBase, opts)
-      .then(response => response.text())
-      .then(data => document.getElementById('databasebox').textContent = data);
-}
+    <!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 
-function display_all () {
-    let url = urlBase + "?action=DA";
-    fetch(url)
-      .then(response => response.json())
-      .then(data => makeTable(data));
-}
+integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+crossorigin="anonymous">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
 
-function search() {
-    var date = document.getElementById("searcheventDate").value;
-    let url = urlBase + "?action=Search&eventDate=" + date;
-    fetch(url)
-      .then(response => response.json())
-      .then(data => makeTable(data));
-    document.getElementById("search_status").innerHTML = "Searched date: " + date;
-    document.getElementById("searcheventDate").value = '';
-}
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="starter-template.css" rel="stylesheet">
+    <script src="buttons.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="#">EARS</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="calendar.html">Calendar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="classes.html">Classes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="recommendations.thml">Recommendations</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
 
-function insert_row() {
-    var nameValue = document.getElementById("InsertEventName").value;
-    var userIdValue = document.getElementById("userId").value;
-    var dateValue = document.getElementById("InsertEventDate").value;
-    var descriptionValue = document.getElementById("eventDescription").value;
-    insertParams = {
-      action: "Insert",
-      eventName: nameValue,
-      userId: userIdValue,
-      eventDate: dateValue,
-      description: descriptionValue
-    };
-    sendPostRequest(insertParams);
-    document.getElementById("insert_status").innerHTML = "Inserted name: " + nameValue + ", userId: " + userIdValue + 
-        ", date: " + dateValue + ", description: " + descriptionValue;
-    document.getElementById("InsertEventName").value = '';
-    document.getElementById("userId").value = '';
-    document.getElementById("InsertEventDate").value = '';
-    document.getElementById("eventDescription").value = '';
-}
+<main role="main" class="container">
 
-function delete_row() {
-    var nameValue = document.getElementById("DeleteEventName").value;
-    var dateValue = document.getElementById("DeleteEventDate").value;
-    deleteParams = {
-      action: "Delete",
-      eventName: nameValue,
-      eventDate: dateValue
-    };
-    sendPostRequest(deleteParams);
-    document.getElementById("delete_status").innerHTML = "Deleted name: " + nameValue + ", date: " + dateValue;
-    document.getElementById("DeleteEventName").value = '';
-    document.getElementById("DeleteEventDate").value = '';
-}
+  <div class="starter-template">
+    <h1>Welcome back, FirstName LastName</h1>
+    <br>
+    <br>
+    <div class="container">
+      <div class="row">
+          <div class="col-md-6">
+            <div class="card" style="background-color: lavender;">
+              <img class="card-img-top" src="holder.js/100x180/" alt="">
+              <div class="card-body">
+                <div>
+                  <h4 class="card-title">Display All Tables</h4>
+                  <p class="card-text" id = "display_status"></p>
+                  <!-- Forms -->
+                  Click to display all the tables <br>
+                  <button type="button" onclick="display_all()">Display</button>
+                  <script src="handle_event.js"></script>
+                </div>
+                <br>
+                <hr>
+                <br>
+                <div>
+                  <h4 class="card-title">Search</h4>
+                  <p class="card-text" id = "search_status">Search</p>
+                  <!-- Forms -->
+                  Event Date to Search:
+                  <input type="text" id="searcheventDate" value=""> <br>
+                  <button type="button" onclick="search()">Submit</button>
+                  <script src="handle_event.js"></script>
+                </div>
+                <br>
+                <hr>
+                <br>
+                <div>
+                  <h4 class="card-title">Insert</h4>
+                  <p class="card-text" id = "insert_status">Nothing inserted yet</p>
+                  <!-- Forms -->
+                  Event Name to Insert:
+                  <input type="text" id="InsertEventName" value=""> <br>
+                  Event userId to Insert:
+                  <input type="text" id="userId" value=""> <br>
+                  Event Date to Insert:
+                  <input type="text" id="InsertEventDate" value=""> <br>
+                  Event Description to Insert:
+                  <input type="text" id="eventDescription" value=""> <br>
+                  <button type="button" onclick="insert_row()">Submit</button>
+                  <script src="handle_event.js"></script>
+                </div>
+                <br>
+                <hr>
+                <br>
+                <div>
+                  <h4 class="card-title">Delete</h4>
+                  <p class="card-text" id = "delete_status">Nothing deleted yet</p>
+                  <!-- Forms -->
+                  Event Name to Delete:
+                  <input type="text" id="DeleteEventName" value=""> <br>
+                  Event Date to Delete:
+                  <input type="text" id="DeleteEventDate" value=""> <br>
+                  <button type="button" onclick="delete_row()">Submit</button>
+                  <script src="handle_event.js"></script>
+                </div>
+                <br>
+                <hr>
+                <br>
+                <div>
+                  <h4 class="card-title">Update</h4>
+                  <p class="card-text" id = "update_status">Nothing updated</p>
+                  <!-- Forms -->
+                  Event Name to Update:
+                  <input type="text" id="UpdateEventName" value=""> <br>
+                  New Event Date:
+                  <input type="text" id="UpdateEventDate" value=""> <br>
+                  <button type="button" onclick="update_row()">Submit</button>
+                  <script src="handle_event.js"></script>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div>
+              <div class="card" style="background-color: lightblue;">
+                <img class="card-img-top" src="holder.js/100x180/" alt="">
+                <div class="card-body">
+                  <h4 class="card-title">Database Results</h4>
+                  <p class="card-text" id="databasebox" style="text-align: left; white-space: pre;">Nothing Yet</p>
+                </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
 
-function update_row() {
-    var nameValue = document.getElementById("UpdateEventName").value;
-    var dateValue = document.getElementById("UpdateEventDate").value;
-    updateParams = {
-      action: "Update",
-      eventName: nameValue,
-      eventDate: dateValue
-    };
-    sendPostRequest(updateParams);
-    document.getElementById("update_status").innerHTML = "Updated name: " + nameValue + ", date: " + dateValue;
-    document.getElementById("UpdateEventName").value = '';
-    document.getElementById("UpdateEventDate").value = '';
-}
+</main><!-- /.container -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+</html>
