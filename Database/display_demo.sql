@@ -1,11 +1,8 @@
 DELIMITER //
-CREATE FUNCTION get_Event_Table()
-RETURNS TABLE
-
-AS
-RETURN (
-    SELECT * 
-    FROM Event
+CREATE PROCEDURE GET_EVENT_TABLE(
     )
-END
+    BEGIN
+        SELECT * FROM Event;
+    END //
 DELIMITER ;
+
