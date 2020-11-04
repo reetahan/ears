@@ -1,42 +1,56 @@
+const urlBase = 'http://earsapp411.web.illinois.edu/query';
+
+function makeTable(jsObj) {
+  let prettifiedString = JSON.stringify(jsObj, null, '\t');
+  document.getElementById('databasebox').innerHTML = prettifiedString.replaceAll('\n', '<br>');
+}
+
+function sendPostRequest(params) {
+  opts = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify(params)
+  };
+  fetch(urlBase, opts)
+      .then(response => response.text())
+      .then(data => document.getElementById('databasebox').textContent = data);
+}
+
 function display_all () {
-    /*
-    const req = {
-        method: "GET",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
-          },
-        query: {
-           "action": "DA" 
-        },
-        body: {
-           "action":"DA" 
-        }
-    }
-    let response = fetch(host, req)[0];
-    if (response.ok) { // if HTTP-status is 200-299
-        // get the response body (the method explained below)
-        let json = await response.json();
-      } else {
-        alert("HTTP-Error: " + response.status);
-      } // contain updated tables*/
+    let url = urlBase + "?action=DA";
+    fetch(url)
+      .then(response => response.json())
+      .then(data => makeTable(data));
 }
 
 function search() {
-    var name = document.getElementById("searcheventName").value;
     var date = document.getElementById("searcheventDate").value;
-    document.getElementById("search_status").innerHTML = "Searched name: " + name + " date " + date;
-    document.getElementById("searcheventName").value = '';
+    let url = urlBase + "?action=Search&eventDate=" + date;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => makeTable(data));
+    document.getElementById("search_status").innerHTML = "Searched date: " + date;
     document.getElementById("searcheventDate").value = '';
 }
 
+
 function insert_row() {
-    var name = document.getElementById("InsertEventName").value;
-    var userId = document.getElementById("userId").value;
-    var date = document.getElementById("InsertEventDate").value;
-    var description = document.getElementById("eventDescription").value;
-    document.getElementById("insert_status").innerHTML = "Inserted name: " + name + " userId: " + userId + 
-        " date: " + date + " description: " + description;
+    var nameValue = document.getElementById("InsertEventName").value;
+    var userIdValue = document.getElementById("userId").value;
+    var dateValue = document.getElementById("InsertEventDate").value;
+    var descriptionValue = document.getElementById("eventDescription").value;
+    insertParams = {
+      action: "Insert",
+      eventName: nameValue,
+      userId: userIdValue,
+      eventDate: dateValue,
+      description: descriptionValue
+    };
+    sendPostRequest(insertParams);
+    document.getElementById("insert_status").innerHTML = "Inserted name: " + nameValue + ", userId: " + userIdValue +
+        ", date: " + dateValue + ", description: " + descriptionValue;
     document.getElementById("InsertEventName").value = '';
     document.getElementById("userId").value = '';
     document.getElementById("InsertEventDate").value = '';
@@ -44,17 +58,29 @@ function insert_row() {
 }
 
 function delete_row() {
-    var name = document.getElementById("DeleteEventName").value;
-    var date = document.getElementById("DeleteEventDate").value;
-    document.getElementById("delete_status").innerHTML = "Deleted name: " + name + " date: " + date;
+    var nameValue = document.getElementById("DeleteEventName").value;
+    var dateValue = document.getElementById("DeleteEventDate").value;
+    deleteParams = {
+      action: "Delete",
+      eventName: nameValue,
+      eventDate: dateValue
+    };
+    sendPostRequest(deleteParams);
+    document.getElementById("delete_status").innerHTML = "Deleted name: " + nameValue + ", date: " + dateValue;
     document.getElementById("DeleteEventName").value = '';
     document.getElementById("DeleteEventDate").value = '';
 }
 
 function update_row() {
-    var name = document.getElementById("UpdateEventName").value;
-    var date = document.getElementById("UpdateEventDate").value;
-    document.getElementById("update_status").innerHTML = "Updated name: " + name + " date: " + date;
+    var nameValue = document.getElementById("UpdateEventName").value;
+    var dateValue = document.getElementById("UpdateEventDate").value;
+    updateParams = {
+      action: "Update",
+      eventName: nameValue,
+      eventDate: dateValue
+    };
+    sendPostRequest(updateParams);
+    document.getElementById("update_status").innerHTML = "Updated name: " + nameValue + ", date: " + dateValue;
     document.getElementById("UpdateEventName").value = '';
     document.getElementById("UpdateEventDate").value = '';
 }
