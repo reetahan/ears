@@ -1,0 +1,4 @@
+1. create insert/delete/update procedures for Courses, Accounts, CourseLink, User - and update connector tables appropriately
+2. create display procedure for Courses, Events, CourseLink, sorted
+3. create procedure to update latest login time 
+4. add enforcement constraints to current tables 
