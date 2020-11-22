@@ -11,7 +11,6 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/starter-template/">
 
     <!-- Bootstrap core CSS -->
-<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 crossorigin="anonymous">
@@ -43,17 +42,17 @@ crossorigin="anonymous">
 
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="index.html">Home </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="calendar.html">Calendar <span class="sr-only">(current)</span> </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="classes.html">Classes</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="recommendations.thml">Recommendations</a>
+        <a class="nav-link" href="recommendations.html">Recommendations</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -68,31 +67,169 @@ crossorigin="anonymous">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./calendar.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
+</head> 
+
 <body>
 
 <div class="container">
-  <h2>Card Deck</h2>
-  <p>The .card-deck class creates an <strong>equal height and width</strong> grid of cards. The layout will automatically adjust as you insert more cards.</p>
-  <p>In this example we have added extra content to the first card, to make it taller. Notice how the other cards follow.</p>
-  <p><strong>Note:</strong> The cards are displayed vertically on small screens (less than 576px):</p>
-  <div class="card-deck">
-    <div class="card bg-primary">
+  <div class="card-deck" >
+    <div class="card border-dark mb-3"> <!-- Start of the first card-->
+      <h1 class="card-title text-center" id="today">Today is: </h1>
       <div class="card-body text-center">
-        <p class="card-text">Some text inside the first card</p>
-        <p class="card-text">Some more text to increase the height</p>
-        <p class="card-text">Some more text to increase the height</p>
-        <p class="card-text">Some more text to increase the height</p>
+        <p class="card-text" id="daily_event">Some text inside the first card</p>
       </div>
-    </div>
-    <div class="card bg-warning">
-      <div class="card-body text-center">
-        <p class="card-text">This will contain the calendar image</p>
-      </div>
-    </div>
+    </div> <!-- End of the first card-->
+    
+    <div class="card border-dark mb-3"> <!-- Start of the second card-->
+          <style>
+              * {box-sizing: border-box;}
+              ul {list-style-type: none;}
+              body {font-family: Verdana, sans-serif;}
+              
+              .month {
+                padding: 70px 25px;
+                width: 100%;
+                background: #1abc9c;
+                text-align: center;
+              }
+              
+              .month ul {
+                margin: 0;
+                padding: 0;
+              }
+              
+              .month ul li {
+                color: white;
+                font-size: 20px;
+                text-transform: uppercase;
+                letter-spacing: 3px;
+              }
+              
+              .month .prev {
+                float: left;
+                padding-top: 10px;
+              }
+              
+              .month .next {
+                float: right;
+                padding-top: 10px;
+              }
+              
+              .weekdays {
+                margin: 0;
+                padding: 10px 0;
+                background-color: #ddd;
+              }
+              
+              .weekdays li {
+                display: inline-block;
+                width: 13%;
+                color: #666;
+                text-align: center;
+              }
+              
+              .days {
+                padding: 10px 0;
+                background: #eee;
+                margin: 0;
+              }
+              
+              .days button {
+                list-style-type: none;
+                display: inline-block;
+                width: 13%;
+                text-align: center;
+                margin-bottom: 5px;
+                font-size:12px;
+                color: #777;
+                border: none;
+              }
+              
+              .days li .active {
+                padding: 5px;
+                background: #1abc9c;
+                color: white !important
+              }
+              
+              /* Add media queries for smaller screens */
+              @media screen and (max-width:720px) {
+                .weekdays li, .days li {width: 13.1%;}
+              }
+              
+              @media screen and (max-width: 420px) {
+                .weekdays li, .days li {width: 12.5%;}
+                .days li .active {padding: 2px;}
+              }
+              
+              @media screen and (max-width: 290px) {
+                .weekdays li, .days li {width: 12.2%;}
+              }
+              </style>
+              </head>
+              <body>
+              
+              <div class="month">      
+                <ul>
+                  <li class="prev">&#10094;</li>
+                  <li class="next">&#10095;</li>
+                  <li>
+                    December<br>
+                    <span style="font-size:18px">2020</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <ul class="weekdays">
+                <li>Su</li>
+                <li>Mo</li>
+                <li>Tu</li>
+                <li>We</li>
+                <li>Th</li>
+                <li>Fr</li>
+                <li>Sa</li>
+              </ul>
+              
+              <ul class="days"> 
+                <button type="button"> </button> 
+                <button type="button"> </button>
+                <button type="button" id="1" onclick="display_event(1)">1</button>
+                <button type="button" id="2" onclick="display_event(2)">2</button>
+                <button type="button" id="3" onclick="display_event(3)">3</button>
+                <button type="button" id="4" onclick="display_event(4)">4</button>
+                <button type="button" id="5" onclick="display_event(5)">5</button>
+                <button type="button" id="6" onclick="display_event(6)">6</button>
+                <button type="button" id="7" onclick="display_event(7)">7</button>
+                <button type="button" id="8" onclick="display_event(8)">8</button>
+                <button type="button" id="9" onclick="display_event(9)">9</button>
+                <button type="button" id="10" onclick="display_event(10)">10</button>
+                <button type="button" id="11" onclick="display_event(11)">11</button>
+                <button type="button" id="12" onclick="display_event(12)">12</button>
+                <button type="button" id="13" onclick="display_event(13)">13</button>
+                <button type="button" id="14" onclick="display_event(14)">14</button>
+                <button type="button" id="15" onclick="display_event(15)">15</button>
+                <button type="button" id="16" onclick="display_event(16)">16</button>
+                <button type="button" id="17" onclick="display_event(17)">17</button>
+                <button type="button" id="18" onclick="display_event(18)">18</button>
+                <button type="button" id="19" onclick="display_event(19)">19</button>
+                <button type="button" id="20" onclick="display_event(20)">20</button>
+                <button type="button" id="21" onclick="display_event(21)">21</button>
+                <button type="button" id="22" onclick="display_event(22)">22</button>
+                <button type="button" id="23" onclick="display_event(23)">23</button>
+                <button type="button" id="24" onclick="display_event(24)">24</button>
+                <button type="button" id="25" onclick="display_event(25)">25</button>
+                <button type="button" id="26" onclick="display_event(26)">26</button>
+                <button type="button" id="27" onclick="display_event(27)">27</button>
+                <button type="button" id="28" onclick="display_event(28)">28</button>
+                <button type="button" id="29" onclick="display_event(29)">29</button>
+                <button type="button" id="30" onclick="display_event(30)">30</button>
+                <button type="button" id="31" onclick="display_event(30)">31</button>
+              </ul>
+              <script src="calendar_receive_event.js"></script>
+    </div> <!-- End of the second card-->
   </div>
 </div>
 
@@ -101,3 +238,4 @@ crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 </html>
+
