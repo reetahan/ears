@@ -1,4 +1,4 @@
-const urlBase = 'http://earsapp411.web.illinois.edu/query';
+const urlBase = '/api';
 
 function makeTable(jsObj) {
   let prettifiedString = JSON.stringify(jsObj, null, '\t');
@@ -19,7 +19,7 @@ function sendPostRequest(params) {
 }
 
 function display_all () {
-    let url = urlBase + "?action=DA";
+    let url = urlBase + "?apiType=Demo&action=DA";
     fetch(url)
       .then(response => response.json())
       .then(data => makeTable(data));
@@ -27,7 +27,7 @@ function display_all () {
 
 function search() {
     var date = document.getElementById("searcheventDate").value;
-    let url = urlBase + "?action=Search&eventDate=" + date;
+    let url = urlBase + "?apiType=Demo&action=Search&eventDate=" + date;
     fetch(url)
       .then(response => response.json())
       .then(data => makeTable(data));
@@ -42,6 +42,7 @@ function insert_row() {
     var dateValue = document.getElementById("InsertEventDate").value;
     var descriptionValue = document.getElementById("eventDescription").value;
     insertParams = {
+      apiType: "Demo",
       action: "Insert",
       eventName: nameValue,
       userId: userIdValue,
@@ -61,6 +62,7 @@ function delete_row() {
     var nameValue = document.getElementById("DeleteEventName").value;
     var dateValue = document.getElementById("DeleteEventDate").value;
     deleteParams = {
+      apiType: "Demo",
       action: "Delete",
       eventName: nameValue,
       eventDate: dateValue
@@ -75,6 +77,7 @@ function update_row() {
     var nameValue = document.getElementById("UpdateEventName").value;
     var dateValue = document.getElementById("UpdateEventDate").value;
     updateParams = {
+      apiType: "Demo",
       action: "Update",
       eventName: nameValue,
       eventDate: dateValue
