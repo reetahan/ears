@@ -1,8 +1,0 @@
-DELIMITER //
-CREATE PROCEDURE GET_EVENT_TABLE(
-    )
-    BEGIN
-        SELECT * FROM Event;
-    END //
-DELIMITER ;
-
