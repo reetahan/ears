@@ -1,15 +1,36 @@
 const {
   request
 } = require('express');
-let config = require('../../../config.js');
+let config = require('../config.js');
 const express = require('express')
 const bodyParser = require("body-parser");
 let mysql = require('mysql');
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
+let winston = require('winston');
+
+let logger = winston.createLogger({
+    level: 'debug',
+    format: winston.format.combine(
+      winston.format.splat(),
+      winston.format.timestamp(),
+      winston.format.colorize(),
+      winston.format.printf(info => {
+          if (typeof info.message === 'string') {
+            return `[${info.timestamp}] ${info.level}: ${info.message}`;
+          }
+          return `[${info.timestamp}] ${info.level}: ` + JSON.stringify(info.message);
+      })
+    ),
+    transports: [
+      new winston.transports.Console(),
+      new winston.transports.File({filename: '/home/earsapp411/logs/EARSNodeApp.log'})
+    ]
+});
+var log = (obj) => logger.debug(obj);
 
 const router = express.Router();
-const app = express()
+const app = express();
 const port = 3000;
 
 var connection = mysql.createConnection(config);
@@ -33,7 +54,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 function handleAuthenticate(req, res) {
-  const loginFailureText = 'Error: Login Failed';
   var username = req.body.username;
   var password = req.body.password;
   if (!username || !password) {
@@ -47,20 +67,19 @@ function handleAuthenticate(req, res) {
       return;
     }
     if (results[0].length > 0) {
-      req.session.loggeDin = true;
+      req.session.loggedin = true;
       req.session.username = username;
       req.session.FullName = results[0][0].FullName;
       req.session.UserId = results[0][0].UserId;
       res.send("OK!");
     } else {
-      response.send('Incorrect Username and/or Password!');
+      res.send('Incorrect Username and/or Password!');
     }
     res.end();
   });
 }
 
 function handleDemoGet(req, res) {
-  console.log('hello');
   switch (req.query.action) {
     case "DA":
       returnAllEvents(res);
@@ -161,6 +180,7 @@ function updateEvent(body, res) {
 
 
 app.get('/api', (req, res) => {
+  log("GET Request");
   switch (req.query.apiType) {
     case "Demo":
       handleDemoGet(req, res);
@@ -171,6 +191,7 @@ app.get('/api', (req, res) => {
 })
 
 app.post('/api', (req, res) => {
+  log("POST Request");
   switch (req.body.apiType) {
     case "Demo":
       handleDemoPost(req, res);
