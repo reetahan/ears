@@ -35,6 +35,16 @@ function search() {
     document.getElementById("searcheventDate").value = '';
 }
 
+function getUserName() {
+  let url = urlBase + "?apiType=Demo&action=Test";
+  fetch(url)
+    .then(response => response.text())
+    .then(headline => {
+      if (headline !== "Welcome back, undefined") {
+        document.getElementById('headline').textContent = headline;
+      }
+    });
+}
 
 function insert_row() {
     var nameValue = document.getElementById("InsertEventName").value;
