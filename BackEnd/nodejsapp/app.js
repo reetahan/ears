@@ -29,7 +29,7 @@ let logger = winston.createLogger({
       new winston.transports.File({filename: '/home/earsapp411/logs/EARSNodeApp.log'})
     ]
 });
-var log = (obj) => logger.debug(obj);
+var log = (...args) => logger.log('debug', ...args);
 
 const router = express.Router();
 const app = express();
@@ -71,10 +71,10 @@ function handleAuthenticate(req, res) {
     
     if (results[0].length !== 1
         || !bcrypt.compareSync(plaintextPassword, results[0][0].HashedPassword)) {
-      log("Failed login with username " + username);
+      log("Failed login with username %s", username);
       res.send('Incorrect Username and/or Password!');
     } else {
-      log("Logged in with username " + username);
+      log("Logged in with username %s", username);
       req.session.loggedin = true;
       req.session.username = username;
       req.session.FullName = results[0][0].FullName;
