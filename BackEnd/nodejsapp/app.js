@@ -8,6 +8,8 @@ let mysql = require('mysql');
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 let winston = require('winston');
+let bcrypt = require('bcrypt');
+const NUM_SALT_ROUNDS = 13;
 
 let logger = winston.createLogger({
     level: 'debug',
@@ -55,25 +57,29 @@ app.use(bodyParser.json());
 
 function handleAuthenticate(req, res) {
   var username = req.body.username;
-  var password = req.body.password;
-  if (!username || !password) {
+  var plaintextPassword = req.body.password;
+  if (!username || !plaintextPassword) {
     res.send('Please enter a username and password!');
     return;
   }
-  let sql = `CALL GET_ACCOUNT(?, ?)`;
-  connection.query(sql, [username, password], (error, results, fields) => {
+  let sql = `CALL GET_ACCOUNT(?)`;
+  connection.query(sql, [username], (error, results, fields) => {
     if (error) {
       res.send("Error: " + error.message);
       return;
     }
-    if (results[0].length > 0) {
+    
+    if (results[0].length !== 1
+        || !bcrypt.compareSync(plaintextPassword, results[0][0].HashedPassword)) {
+      log("Failed login with username " + username);
+      res.send('Incorrect Username and/or Password!');
+    } else {
+      log("Logged in with username " + username);
       req.session.loggedin = true;
       req.session.username = username;
       req.session.FullName = results[0][0].FullName;
       req.session.UserId = results[0][0].UserId;
       res.send("OK!");
-    } else {
-      res.send('Incorrect Username and/or Password!');
     }
     res.end();
   });
@@ -178,12 +184,25 @@ function updateEvent(body, res) {
   });
 }
 
+function handleMiscGet(req, res) {
+  if (req.query.action === "hashPassword") {
+    log("hashing password");
+    res.send(hashPassword(req.query.plaintextPassword));
+  }
+}
+
+function hashPassword(plaintextPassword) {
+  return bcrypt.hashSync(plaintextPassword, NUM_SALT_ROUNDS);
+}
 
 app.get('/api', (req, res) => {
   log("GET Request");
   switch (req.query.apiType) {
     case "Demo":
       handleDemoGet(req, res);
+      break;
+    case "Misc":
+      handleMiscGet(req, res);
       break;
     default:
       res.send("Invalid GET Request");
@@ -206,5 +225,5 @@ app.post('/api', (req, res) => {
 
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}/`);
+  log(`Server running at http://localhost:${port}/`);
 });
