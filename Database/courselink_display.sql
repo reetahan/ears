@@ -1,7 +1,7 @@
 DELIMITER //
 DROP PROCEDURE IF EXISTS COURSELINK_DISPLAY;
 CREATE PROCEDURE COURSELINK_DISPLAY(
-   	username_ VARCHAR(100)
+   	userId_ INT
 	 )
     BEGIN
         SELECT * 
@@ -10,12 +10,7 @@ CREATE PROCEDURE COURSELINK_DISPLAY(
 			(
 			SELECT CourseId
 			FROM Enrollment
-			WHERE UserId = 
-					(
-					SELECT UserId
-					FROM Account
-					WHERE Username = username_
-					)
+			WHERE UserId = userId_
 			);
     END //
 DELIMITER ;
