@@ -1,13 +1,11 @@
+DROP PROCEDURE IF EXISTS EVENT_DELETE ;
 DELIMITER //
 CREATE PROCEDURE EVENT_DELETE(
-       Name_ VARCHAR(100),
-       Date_ VARCHAR(100)
+       eventId_ INT
     )
     BEGIN
-        SET @convertedDate = STR_TO_DATE(Date_ , "%m-%d-%Y %H:%i") ;
-        SET @delId = (SELECT EventId FROM Event WHERE EventName=Name_ AND DueDate=@convertedDate);
-        DELETE FROM Event WHERE EventName = Name_ AND DueDate = @convertedDate;
-        DELETE FROM CreateEvent WHERE EventId = @delId ;
-	DELETE FROM Assign WHERE EventId = @delId ;
+        DELETE FROM Event WHERE EventId = eventId_ ;
+        DELETE FROM CreateEvent WHERE EventId = eventId_ ;
+	DELETE FROM Assign WHERE EventId = eventId_ ;
     END //
 DELIMITER ;

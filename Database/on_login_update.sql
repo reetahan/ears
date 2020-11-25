@@ -1,0 +1,9 @@
+DROP PROCEDURE IF EXISTS UPDATE_LOGIN_TIME;
+DELIMITER //
+CREATE PROCEDURE UPDATE_LOGIN_TIME(
+        userId_ INT
+        )
+    BEGIN
+	UPDATE Account SET LatestLoginTime =  NOW() WHERE UserId = userId_ ;
+    END //
+DELIMITER ;

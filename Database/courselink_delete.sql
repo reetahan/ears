@@ -6,7 +6,6 @@ CREATE PROCEDURE DELETE_COURSELINK(
     	tag_ VARCHAR(100)
     )
     BEGIN
-        SET @delId = (SELECT Link FROM CourseLink WHERE Link=link_);
-        DELETE FROM CourseLink WHERE Link=link_ AND Tag=tag_;
+        DELETE FROM CourseLink WHERE Link=link_ AND Tag=tag_ AND CourseID=courseID_;
     END //
 DELIMITER ;
