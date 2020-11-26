@@ -11,6 +11,7 @@ let demo = require("./demo.js");
 let misc = require("./misc.js");
 let course = require("./course.js");
 let courseLink = require("./courselink.js");
+let event = require("./event.js");
 let auth = require("./userAuthentication.js");
 
 let logger = winston.createLogger({
@@ -81,6 +82,9 @@ app.get("/api", async (req, res) => {
     case "CourseLink":
       await courseLink.handleCourseLinkGETs(req, res);
       break;
+    case "Event":
+      await event.handleEventGETs(req, res);
+      break;
     case "Misc":
       await misc.handleMiscGet(req, res);
       break;
@@ -108,6 +112,9 @@ app.post("/api", async (req, res) => {
     case "CourseLink":
       await courseLink.handleCourseLinkPOSTs(req, res);
       break;
+      case "Event":
+        await event.handleEventPOSTs(req, res);
+        break;
     default:
       res.send("Invalid POST Request");
   }
