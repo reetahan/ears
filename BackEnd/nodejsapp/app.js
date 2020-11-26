@@ -6,10 +6,11 @@ let mysql = require("mysql");
 var session = require("express-session");
 var MySQLStore = require("express-mysql-session")(session);
 let winston = require("winston");
-let bcrypt = require("bcrypt");
+let util = require("util");
 let demo = require("./demo.js");
 let misc = require("./misc.js");
 let course = require("./course.js");
+let courseLink = require("./courselink.js");
 let auth = require("./userAuthentication.js");
 
 let logger = winston.createLogger({
@@ -65,6 +66,9 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+global.connectionAsyncQuery = async (sql, args) =>
+  util.promisify(global.connection.query).call(global.connection, sql, args);
+
 app.get("/api", async (req, res) => {
   global.log("GET Request");
   switch (req.query.apiType) {
@@ -72,7 +76,10 @@ app.get("/api", async (req, res) => {
       demo.handleDemoGet(req, res);
       break;
     case "Course":
-      course.handleCourseGETs(req, res);
+      await course.handleCourseGETs(req, res);
+      break;
+    case "CourseLink":
+      await courseLink.handleCourseLinkGETs(req, res);
       break;
     case "Misc":
       await misc.handleMiscGet(req, res);
@@ -96,13 +103,19 @@ app.post("/api", async (req, res) => {
       auth.handleLogout(req, res);
       break;
     case "Course":
-      course.handleCoursePOSTs(req, res);
+      await course.handleCoursePOSTs(req, res);
+      break;
+    case "CourseLink":
+      await courseLink.handleCourseLinkPOSTs(req, res);
       break;
     default:
       res.send("Invalid POST Request");
   }
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
+  // let rows = await global.connectionAsyncQuery("SELECT * FROM Account", []);
+  // NOTE: for procedures, you would return the first element instead of the whole return value
+  // global.log("%O", JSON.stringify(rows));
   global.log(`Server running at http://localhost:${port}/`);
 });

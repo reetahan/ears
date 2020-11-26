@@ -1,8 +1,8 @@
 module.exports = {
-  handleCourseGETs: function (req, res) {
+  handleCourseGETs: async function (req, res) {
     switch (req.query.action) {
       case "Display":
-        displayCourse(req, res);
+        await displayCourse(req, res);
         break;
       default:
         res.send("Invalid Query");
@@ -25,16 +25,40 @@ module.exports = {
   },
 };
 
-function displayCourse(req, res) {
+async function displayCourse(req, res) {
+  if (!req.session.loggedin) {
+    res.send("User Not Logged In");
+    return;
+  }
   let UserId = req.session.UserId;
-  let sql = `CALL COURSE_DISPLAY(?)`;
-  global.connection.query(sql, [UserId], (error, results, fields) => {
-    if (error) {
-      res.send("Error: " + error.message);
-      return;
-    }
-    res.send(results[0]);
-  });
+  let sqlToGetCourses = `CALL COURSE_DISPLAY(?)`;
+  let sqlToGetCourseLinks = `CALL DISPLAY_LINKS_FOR_COURSE(?)`;
+  try {
+    let courses = await global.connectionAsyncQuery(sqlToGetCourses, [UserId]);
+    courses = courses[0];
+    let coursesWithLinks = await Promise.all(
+      courses.map(async (course) => {
+        let courseId = course.CourseId;
+        try {
+          let courseLinks = await global.connectionAsyncQuery(
+            sqlToGetCourseLinks,
+            [courseId]
+          );
+          courseLinks = courseLinks[0];
+          global.log("Course Links: %O", courseLinks)
+          course["links"] = courseLinks;
+        } catch (innerException) {
+          global.log("Exception getting links: %s", innerException);
+        }
+        return course;
+      })
+    );
+    res.send(coursesWithLinks);
+  } catch (outerException) {
+    global.log("Course Display All Failed with error %s", outerException);
+    res.send("Error in query");
+    return;
+  }
 }
 
 function deleteCourse(req, res) {

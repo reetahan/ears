@@ -4,7 +4,6 @@ CREATE PROCEDURE COURSELINK_UPDATE(
         courseID_ INT, 
     	link_ VARCHAR(200), 
     	tag_ VARCHAR(100),
-	newCourseID INT,
 	newLink VARCHAR(200),
 	newTag VARCHAR(100)
     )
