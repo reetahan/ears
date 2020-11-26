@@ -9,6 +9,9 @@ module.exports = {
       res.send(hashedPassword);
     }
   },
+  exportedHashFunction: async function (plaintextPassword) {
+    return await hashPassword(plaintextPassword);
+  },
 };
 
 NUM_SALT_ROUNDS = 13;
