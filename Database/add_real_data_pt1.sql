@@ -110,5 +110,61 @@ CALL COURSELINK_INSERT(231,"https://learn.illinois.edu/course/view.php?id=49884"
 CALL EVENT_INSERT("Lesson 12",22,"2020-11-20 10:59","complete lesson material by break",232) ;
 CALL COURSELINK_INSERT(232,"https://learn.illinois.edu/course/view.php?id=53430","Moodle") ;
 
-*/
 
+
+CALL USER_INSERT("David Lee","DavidLee","$2b$13$QauyKN0mW5yhESZH0ivkYeDyXDXH2chVKqv6LriM59HUxqUcNY0I.") ;
+CALL COURSE_INSERT("MSE307","Ayyagari","12-01-2020 14:00",23) ;
+CALL COURSE_INSERT("MSE406","Shoemaker","12-01-2020 11:00",23) ;
+CALL COURSE_INSERT("MSE401","Cahill","11-30-2020 09:00",23) ;
+
+CALL EVENT_INSERT("DSC Report",23,"2020-12-03 14:00","Final report",233) ;
+CALL EVENT_INSERT("Pyrometry Presentation",23,"2020-12-03 16:30","Final report",233) ;
+CALL COURSELINK_INSERT(233,"https://compass2g.illinois.edu","Compass") ;
+
+CALL EVENT_INSERT("HW10",23,"2020-12-01 18:00","Final homework",234) ;
+CALL EVENT_INSERT("Worksheet + Report 10",23,"2020-12-02 18:00","Final lab and lab sheet",234) ;
+CALL COURSELINK_INSERT(234,"https://prairielearn.engr.illinois.edu/pl","PL") ;
+
+CALL EVENT_INSERT("HW 11",23,"2020-12-03 17:00","Final homework",235) ;
+CALL COURSELINK_INSERT(235,"https://gradescope.com","Gradescope") ;
+
+
+CALL USER_INSERT("Zaria Sheedy","zaria","$2b$13$Sxji7vYTrcWIA6EPWPPukeRNjcsX9OvmmCltSyKCZr.FyU7MQbUDS") ;
+CALL COURSE_INSERT("ARTD371","Anderson","11-30-2020 09:00",24) ;
+CALL COURSE_INSERT("ARTS264","Xu","11-30-2020 13:00",24) ;
+CALL COURSE_INSERT("CLCV231","Kaufman","12-01-2020 13:00",24) ;
+
+CALL EVENT_INSERT("HW Check-in",24,"2020-11-30 09:00","Final report",236) ;
+CALL EVENT_INSERT("Final Homework",24,"2020-12-11 17:00","Final report",236) ;
+CALL COURSELINK_INSERT(236,"https://uofi.app.box.com/folder/125385941459","Box Submissions") ;
+CALL COURSELINK_INSERT(236,"https://compass2g.illinois.edu/webapps/blackboard/content/listContent.jsp?course_id=_54551_1&content_id=_4752695_1","Compass") ;
+
+CALL EVENT_INSERT("Postcards",24,"2020-11-21 23:59","Final report",237) ;
+CALL EVENT_INSERT("Final Homework",24,"2020-12-11 23:59","Final report",237) ;
+CALL COURSELINK_INSERT(237,"https://uofi.app.box.com/folder/121796225446?s=lzb9ybakyyqdvaeu2j7t6buyjbr7rtja","Box Submissions") ;
+CALL COURSELINK_INSERT(237,"https://compass2g.illinois.edu/webapps/blackboard/content/listContent.jsp?course_id=_54662_1&content_id=_4770158_1","Compass") ;
+
+CALL EVENT_INSERT("Discussion Question",24,"2020-12-03 23:59","Final Discussion Question",238) ;
+CALL EVENT_INSERT("Paper Review",24,"2020-12-08 23:59","Peer reviewing assigned other paper",238) ;
+CALL EVENT_INSERT("Final Paper",24,"2020-12-11 23:59","Final paper",238) ;
+CALL COURSELINK_INSERT(237,"https://compass2g.illinois.edu/webapps/blackboard/content/listContent.jsp?course_id=_52312_1&content_id=_4574774_1","Compass") ;
+
+
+CALL USER_INSERT("Woojin Ahn","WOOJIN","$2b$13$cdTaVqPrSrALkLLKOl1yy.sLMXDxda6lIflvwtiZWai8luGc3gM1i") ;
+CALL COURSE_INSERT("ECE515","Dong","12-01-2020 14:00",25) ;
+CALL COURSE_INSERT("CS446","Zhai","11-30-2020 13:00",25) ;
+CALL COURSELINK_INSERT(238,"https://courses.grainger.illinois.edu/ECE515/fa2020/","Course Site") ;
+CALL COURSELINK_INSERT(239,"https://relate.cs.illinois.edu/course/CS446-fa20/","Relate") ;
+
+
+CALL USER_INSERT("Kevin Zhang","zhang","$2b$13$gIBWHWbQmh7AeX4LhP4ASu80LEPHbuYvAQHhnlWf0aa0jsyE5mHB2") ;
+CALL COURSE_INSERT("CS421","Beckman","12-01-2020 12:30",26) ;
+CALL COURSE_INSERT("CPSC270","Seiter","11-30-2020 14:00",26) ;
+CALL COURSE_INSERT("TSM311","Rodriguez","12-02-2020 10:00",26) ;
+CALL COURSE_INSERT("IB150","Clegg","11-30-2020 11:00",26) ;
+CALL EVENT_INSERT("MP6",26,"2020-12-07 23:59","Unification",240) ;
+CALL COURSELINK_INSERT(240,"https://pages.github-dev.cs.illinois.edu/cs421-fa20/web/","Course Site") ;
+CALL COURSELINK_INSERT(241,"https://compass2g.illinois.edu/webapps/portal/execute/tabs/tabAction?tab_tab_group_id=_1_1","Compass") ;
+CALL COURSELINK_INSERT(242,"https://compass2g.illinois.edu/webapps/portal/execute/tabs/tabAction?tab_tab_group_id=_1_1","Compass") ;
+CALL COURSELINK_INSERT(243,"https://learn.illinois.edu/course/view.php?id=50687","Moodle") ;
+*/
