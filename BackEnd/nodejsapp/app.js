@@ -1,4 +1,5 @@
 const { request } = require("express");
+let MongoClient = require("mongodb").MongoClient;
 let config = require("../config.js");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -13,6 +14,7 @@ let course = require("./course.js");
 let courseLink = require("./courselink.js");
 let event = require("./event.js");
 let user = require("./user.js");
+let recommendations = require("./recommendations.js");
 let auth = require("./userAuthentication.js");
 
 let logger = winston.createLogger({
@@ -43,7 +45,10 @@ const router = express.Router();
 const app = express();
 const port = 3000;
 
-global.connection = mysql.createConnection(config);
+global.connection = mysql.createConnection(config.sqlConfig);
+let mongoConnection = MongoClient.connect(config.mongoUrl, {
+  useUnifiedTopology: true,
+});
 
 var sessionStore = new MySQLStore(
   {
@@ -92,6 +97,9 @@ app.get("/api", async (req, res) => {
     case "Misc":
       await misc.handleMiscGet(req, res);
       break;
+    case "Recommendations":
+      await recommendations.handleRecommendationsGETs(req, res);
+      break;
     default:
       global.log("Invalid GET, original request: %O", req.query);
       res.send("Invalid GET Request");
@@ -122,6 +130,9 @@ app.post("/api", async (req, res) => {
     case "User":
       await user.handleUserPOSTs(req, res);
       break;
+    case "Recommendations":
+      await recommendations.handleRecommendationsPOSTs(req, res);
+      break;
     default:
       res.send("Invalid POST Request");
   }
@@ -131,5 +142,9 @@ app.listen(port, async () => {
   // let rows = await global.connectionAsyncQuery("SELECT * FROM Account", []);
   // NOTE: for procedures, you would return the first element instead of the whole return value
   // global.log("%O", JSON.stringify(rows));
+  mongoConnection = await mongoConnection;
+  global.recommendationsCollection = mongoConnection
+    .db("EARS_MONGO")
+    .collection("Recommendations");
   global.log(`Server running at http://localhost:${port}/`);
 });
