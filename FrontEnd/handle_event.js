@@ -97,3 +97,8 @@ function update_row() {
     document.getElementById("UpdateEventName").value = '';
     document.getElementById("UpdateEventDate").value = '';
 }
+
+function logout() {
+  params = {'apiType': 'Logout'};
+  sendPostRequest(params);
+}
