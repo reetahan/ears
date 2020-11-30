@@ -1,6 +1,5 @@
 const { request } = require("express");
-let MongoClient = require("mongodb").MongoClient;
-let config = require("../config.js");
+let sqlConfig = require("../config.js").sqlConfig;
 const express = require("express");
 const bodyParser = require("body-parser");
 let mysql = require("mysql");
@@ -45,10 +44,7 @@ const router = express.Router();
 const app = express();
 const port = 3000;
 
-global.connection = mysql.createConnection(config.sqlConfig);
-let mongoConnection = MongoClient.connect(config.mongoUrl, {
-  useUnifiedTopology: true,
-});
+global.connection = mysql.createConnection(sqlConfig);
 
 var sessionStore = new MySQLStore(
   {
@@ -142,9 +138,5 @@ app.listen(port, async () => {
   // let rows = await global.connectionAsyncQuery("SELECT * FROM Account", []);
   // NOTE: for procedures, you would return the first element instead of the whole return value
   // global.log("%O", JSON.stringify(rows));
-  mongoConnection = await mongoConnection;
-  global.recommendationsCollection = mongoConnection
-    .db("EARS_MONGO")
-    .collection("Recommendations");
   global.log(`Server running at http://localhost:${port}/`);
 });

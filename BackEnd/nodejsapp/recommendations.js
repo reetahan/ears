@@ -1,8 +1,11 @@
-const util = require('util');
-const execFile = util.promisify(require('child_process').execFile);
+const util = require("util");
+const execFile = util.promisify(require("child_process").execFile);
+let MongoClient = require("mongodb").MongoClient;
+const mongoUrl = require("../config.js").mongoUrl;
 
 module.exports = {
   handleRecommendationsGETs: async function (req, res) {
+    await setCollection();
     switch (req.query.action) {
       case "Display":
         await displayRecommendationsForUser(req, res);
@@ -12,6 +15,7 @@ module.exports = {
     }
   },
   handleRecommendationsPOSTs: async function (req, res) {
+    await setCollection();
     switch (req.body.action) {
       case "Generate":
         await generateRecommendations(req, res);
@@ -21,6 +25,10 @@ module.exports = {
     }
   },
 };
+
+let mongoConnection = MongoClient.connect(mongoUrl, {
+  useUnifiedTopology: true,
+});
 
 async function displayRecommendationsForUser(req, res) {
   if (!req.session.loggedin) {
@@ -41,8 +49,15 @@ async function generateRecommendations(req, res) {
     return;
   }
   let UserId = req.session.UserId;
-  let inputClasses = req.body.input.split(",").filter(x => x);
-  await execFile('python', ['rec.py'].concat(inputClasses));
+  let inputClasses = req.body.input.split(",").filter((x) => x);
+  await execFile("python", ["rec.py", UserId].concat(inputClasses));
   global.log("Generating Recommendations for UserID %d", UserId);
   res.send("OK!");
+}
+
+async function setCollection() {
+  mongoConnection = await mongoConnection;
+  global.recommendationsCollection = mongoConnection
+    .db("EARS_MONGO")
+    .collection("Recommendations");
 }
