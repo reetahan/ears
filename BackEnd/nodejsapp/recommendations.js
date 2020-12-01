@@ -36,7 +36,7 @@ async function displayRecommendationsForUser(req, res) {
     return;
   }
   let UserId = req.session.UserId;
-  let query = { user_id: UserId };
+  let query = { user_id: UserId.toString() };
   let options = { projection: { _id: 0, input: 1, recommendations: 1 } };
   res.send(
     await global.recommendationsCollection.find(query, options).toArray()
@@ -49,10 +49,32 @@ async function generateRecommendations(req, res) {
     return;
   }
   let UserId = req.session.UserId;
+  let interestedClassesRaw = req.body.input;
+  if (interestedClassesRaw === undefined || interestedClassesRaw.length === 0) {
+    res.send("No interested classes specified.");
+    return;
+  }
   let inputClasses = req.body.input.split(",").filter((x) => x);
-  await execFile("python", ["rec.py", UserId].concat(inputClasses));
-  global.log("Generating Recommendations for UserID %d", UserId);
   res.send("OK!");
+  global.log("Generating Recommendations for UserID %d", UserId);
+  try {
+    const { stdout, stderr } = await execFile(
+      "python",
+      ["../ears/Recommendations/rec.py", UserId].concat(inputClasses)
+    );
+
+    global.log(
+      "Generated Recommendations with stdout: %s, stderr: %s",
+      stdout,
+      stderr
+    );
+  } catch (e) {
+    global.log(
+      "Error in Generating Recommendations for UserId %d: %s",
+      UserId,
+      e
+    );
+  }
 }
 
 async function setCollection() {
