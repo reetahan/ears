@@ -1,5 +1,5 @@
 const { request } = require("express");
-let config = require("../config.js");
+let sqlConfig = require("../config.js").sqlConfig;
 const express = require("express");
 const bodyParser = require("body-parser");
 let mysql = require("mysql");
@@ -13,6 +13,7 @@ let course = require("./course.js");
 let courseLink = require("./courselink.js");
 let event = require("./event.js");
 let user = require("./user.js");
+let recommendations = require("./recommendations.js");
 let auth = require("./userAuthentication.js");
 
 let logger = winston.createLogger({
@@ -43,7 +44,7 @@ const router = express.Router();
 const app = express();
 const port = 3000;
 
-global.connection = mysql.createConnection(config);
+global.connection = mysql.createConnection(sqlConfig);
 
 var sessionStore = new MySQLStore(
   {
@@ -92,6 +93,9 @@ app.get("/api", async (req, res) => {
     case "Misc":
       await misc.handleMiscGet(req, res);
       break;
+    case "Recommendations":
+      await recommendations.handleRecommendationsGETs(req, res);
+      break;
     default:
       global.log("Invalid GET, original request: %O", req.query);
       res.send("Invalid GET Request");
@@ -121,6 +125,9 @@ app.post("/api", async (req, res) => {
       break;
     case "User":
       await user.handleUserPOSTs(req, res);
+      break;
+    case "Recommendations":
+      await recommendations.handleRecommendationsPOSTs(req, res);
       break;
     default:
       res.send("Invalid POST Request");

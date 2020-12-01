@@ -8,7 +8,7 @@ CREATE PROCEDURE EVENT_INSERT(
 	courseId_ VARCHAR(200)
 	) 
     BEGIN
-    	SET @convertedDate = STR_TO_DATE(date_ , "%m-%d-%Y %H:%i") ;
+    	SET @convertedDate = STR_TO_DATE(date_ , "%Y-%m-%d %H:%i") ;
         INSERT INTO Event(EventName,DueDate,Description) VALUES(name_ , @convertedDate, description_) ;
         SET @newId = (SELECT EventId FROM Event ORDER BY EventId DESC LIMIT 1) ; 
         INSERT INTO CreateEvent(EventId, UserId) VALUES(@newId, userId_) ;
