@@ -27,7 +27,7 @@ function sendPostRequest(params) {
     };
     fetch(urlBase, opts)
         .then(response => response.text())
-        .then(data => document.getElementById('databasebox').textContent = data);
+        .then(data => document.getElementById('input_status').textContent = data);
   }
 function display_event(day) {
     var days=["Sunday","Monday","Tuesday", "Wednesday", "Thursday","Friday", "Saturday"];
@@ -46,4 +46,27 @@ function display_event(day) {
     //document.getElementById("searcheventDate").value = '';
     }
     //
-    //
+
+function insert_row() {
+    console.log("insert_row");
+    var nameValue = document.getElementById("InsertEventName").value;
+    var userIdValue = document.getElementById("userId").value;
+    var dateValue = document.getElementById("InsertEventDate").value;
+    var descriptionValue = document.getElementById("eventDescription").value;
+    insertParams = {
+      apiType: "Demo",
+      action: "Insert",
+      eventName: nameValue,
+      userId: userIdValue,
+      eventDate: dateValue,
+      description: descriptionValue
+    };
+    sendPostRequest(insertParams);
+    var display_string = "Successfully inserted event!" + '<br>';
+    display_string += "New event name: " + nameValue + '<br>' + "New event date: " + dateValue + '<br>' + "New event description: " + descriptionValue;
+    document.getElementById("insert_status").innerHTML = display_string;
+    document.getElementById("InsertEventName").value = '';
+    document.getElementById("userId").value = '';
+    document.getElementById("InsertEventDate").value = '';
+    document.getElementById("eventDescription").value = '';
+}
