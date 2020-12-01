@@ -60,9 +60,13 @@ crossorigin="anonymous">
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
+<<<<<<< HEAD
       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
       <button style="margin-left: 15px" onclick="logout()">Logout</button>
+=======
+      <button class="btn btn-secondary my-2 my-sm-0" class="logout" type="button">Logout</button>
+>>>>>>> 4163e0e... insitu
     </form>
   </div>
 </nav>
@@ -70,96 +74,47 @@ crossorigin="anonymous">
 <main role="main" class="container">
 
   <div class="starter-template">
-    <h1 id="headline">Welcome back!</h1>
-    <br>
-    <br>
-    <div class="container">
-      <div class="row">
-          <div class="col-md-6">
-            <div class="card" style="background-color: lavender;">
-              <img class="card-img-top" src="holder.js/100x180/" alt="">
-              <div class="card-body">
-                <div>
-                  <h4 class="card-title">Display All Events</h4>
-                  <p class="card-text" id = "display_status"></p>
-                  <!-- Forms -->
-                  Click to display all the events in the table <br>
-                  <button type="button" onclick="display_all()">Display</button>
+    <div class="starter-template">
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+              <div class="card" style="background-color: lavender;">
+                <img class="card-img-top" src="holder.js/100x180/" alt="">
+                <div class="card-body" id="class-body">
+                  <div>
+                    <h4 class="card-title">Welcome back!</h4>
+                  </div>
                 </div>
-                <br>
-                <hr>
-                <br>
-                <div>
-                  <h4 class="card-title">Search</h4>
-                  <p class="card-text" id = "search_status">Search</p>
-                  <!-- Forms -->
-                  Event Date to Search:
-                  <input type="text" id="searcheventDate" value=""> <br>
-                  <button type="button" onclick="search()">Submit</button>
-                  <script src="handle_event.js"></script>
-                </div>
-                <br>
-                <hr>
-                <br>
-                <div>
-                  <h4 class="card-title">Insert</h4>
-                  <p class="card-text" id = "insert_status">Nothing inserted yet</p>
-                  <!-- Forms -->
-                  Event Name to Insert:
-                  <input type="text" id="InsertEventName" value=""> <br>
-                  Event userId to Insert:
-                  <input type="text" id="userId" value=""> <br>
-                  Event Date to Insert:
-                  <input type="text" id="InsertEventDate" value=""> <br>
-                  Event Description to Insert:
-                  <input type="text" id="eventDescription" value=""> <br>
-                  <button type="button" onclick="insert_row()">Submit</button>
-                  <script src="handle_event.js"></script>
-                </div>
-                <br>
-                <hr>
-                <br>
-                <div>
-                  <h4 class="card-title">Delete</h4>
-                  <p class="card-text" id = "delete_status">Nothing deleted yet</p>
-                  <!-- Forms -->
-                  Event Name to Delete:
-                  <input type="text" id="DeleteEventName" value=""> <br>
-                  Event Date to Delete:
-                  <input type="text" id="DeleteEventDate" value=""> <br>
-                  <button type="button" onclick="delete_row()">Submit</button>
-                  <script src="handle_event.js"></script>
-                </div>
-                <br>
-                <hr>
-                <br>
-                <div>
-                  <h4 class="card-title">Update</h4>
-                  <p class="card-text" id = "update_status">Nothing updated</p>
-                  <!-- Forms -->
-                  Event Name to Update:
-                  <input type="text" id="UpdateEventName" value=""> <br>
-                  New Event Date:
-                  <input type="text" id="UpdateEventDate" value=""> <br>
-                  <button type="button" onclick="update_row()">Submit</button>
-                  <script src="handle_event.js"></script>
-              </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-6">
-            <div>
-              <div class="card" style="background-color: lightblue;">
+        </div>
+      </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card" style="background-color: rgb(214, 248, 236);">
                 <img class="card-img-top" src="holder.js/100x180/" alt="">
-                <div class="card-body">
-                  <h4 class="card-title">Database Results</h4>
-                  <p class="card-text" id="databasebox" style="text-align: left; white-space: pre;">Nothing Yet</p>
+                <div class="card-body" id="class-body">
+                  <div>
+                    <h4 class="card-title">Upcoming Events</h4>
+                    <p class="card-text" id = "events-body">List out events here</p>
+                  </div>
                 </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card" style="background-color: rgb(247, 217, 207);">
+                <img class="card-img-top" src="holder.js/100x180/" alt="">
+                <div class="card-body" id="class-body">
+                  <div>
+                    <h4 class="card-title">Add Event</h4>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
       </div>
     </div>
-  </div>
 
 </main><!-- /.container -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
