@@ -6,11 +6,12 @@ from itertools import combinations
 
 def main():
 	user_id, input_recs = parse_input()
-	rec = primary_rec(input_recs, "model.p")
+	model_filepath = "/home/earsapp411/ears/Recommendations/model.p"
+	rec = primary_rec(input_recs, model_filepath)
 	if(rec == None):
-		rec = secondary_rec(input_recs, "model.p")
+		rec = secondary_rec(input_recs, model_filepath)
 		if(rec == None):
-			rec = tertiary_rec(input_recs, "model.p")
+			rec = tertiary_rec(input_recs, model_filepath)
 	if(str(type(input_recs)) == '<type \'str\'>'):
 		input_recs = [input_recs]
 	else:

@@ -5,11 +5,11 @@ from itertools import combinations
 import pickle
 
 def main():
-	transactions, max_poss_pat_size, support = parse_transactions("input.txt")
+	transactions, max_poss_pat_size, support = parse_transactions("/home/earsapp411/ears/Recommendations/input.txt")
 	freq_itemsets, size = gen_freq_itemsets(transactions, max_poss_pat_size, support)
 	#order_print(freq_itemsets, size)
 	rules = confidence(freq_itemsets)
-	save_model(rules, "model.p")
+	save_model(rules, "/home/earsapp411/ears/Recommendations/model.p")
 	
 def parse_transactions(input_file):
 	line_list = []
