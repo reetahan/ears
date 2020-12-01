@@ -47,21 +47,20 @@ crossorigin="anonymous">
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="index.html">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="calendar.html">Calendar</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="classes.html">Classes</a>
+        <a class="nav-link" href="classes.html">Classes <span class="sr-only">(current)</span> </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="recommendations.html">Recommendations</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+      <button class="btn btn-secondary my-2 my-sm-0" style="margin-left: 15px" class="logout" type="button" onclick="logout()">Logout</button>
     </form>
   </div>
 </nav>
@@ -71,25 +70,71 @@ crossorigin="anonymous">
   <div class="starter-template">
     <div class="container">
       <div class="row">
-          <div class="col-md-6">
+          <div class="col-lg-12">
             <div class="card" style="background-color: lavender;">
               <img class="card-img-top" src="holder.js/100x180/" alt="">
               <div class="card-body" id="class-body">
                 <div>
                   <h4 class="card-title" id="class-title">Class Title</h4>
+                  <h5 id="class-professor">Class Professor</h5>
+                <hr>
                   <p class="card-text" id = "class-body"></p>
                   Link title <button type="button">Go to link</button>
-                </div>
-                <br>
-                <hr>
-                <div>
-                  <h4 class="card-title">Events</h4>
-                  <p class="card-text" id = "events-body">List out events here</p>
                 </div>
               </div>
             </div>
           </div>
       </div>
+    </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card" style="background-color: rgb(214, 248, 236);">
+              <img class="card-img-top" src="holder.js/100x180/" alt="">
+              <div class="card-body" id="class-body">
+                <div>
+                  <h4 class="card-title">Events</h4>
+                  <p class="card-text" id = "events-body">List out events here</p>
+                </div>
+                <br>
+                <hr>
+              <div>
+                Event Date to Search:
+                  <input type="text" id="searcheventDate" value=""> <br>
+                  <button type="submit">Search</button>
+                  <p>No results yet</p>
+                  <button type="button">Edit Event</button> 
+                  <button type="button">Delete Event</button>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card" style="background-color: rgb(247, 217, 207);">
+              <img class="card-img-top" src="holder.js/100x180/" alt="">
+              <div class="card-body" id="class-body">
+                
+                <div>
+                  <h4 class="card-title">Add Event</h4>
+                  Name
+                  <input type="text" id="createEventName" value=""> <br>
+                  Date
+                  <input type="text" id="createEventDate" value=""> <br>
+                  Description
+                  <input type="text" id="createEventDesc" value=""> <br>
+                  <button type="button">Add</button>
+                  <br>
+                </div>
+                <br>
+                <hr>
+                <div>
+                  <button type="button">Edit Class</button> 
+                  <button type="button">Delete Class</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
   </div>
 
