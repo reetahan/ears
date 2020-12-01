@@ -11,7 +11,11 @@ def main():
 		rec = secondary_rec(input_recs, "model.p")
 		if(rec == None):
 			rec = tertiary_rec(input_recs, "model.p")
-	write_rec(user_id, list(input_recs), rec)
+	if(str(type(input_recs)) == '<type \'str\'>'):
+		input_recs = [input_recs]
+	else:
+		input_recs = list(input_recs)
+	write_rec(user_id, input_recs, rec)
 
 def primary_rec(input_recs, model):
 	f = open(model, "rb")
@@ -26,7 +30,7 @@ def primary_rec(input_recs, model):
 	return rec
 
 def secondary_rec(input_recs, model):
-	if(str(type(input_recs)) == '<class \'str\'>'):
+	if(str(type(input_recs)) == '<type \'str\'>'):
 		return tertiary_rec(input_recs, model)
 
 	f = open(model, "rb")
