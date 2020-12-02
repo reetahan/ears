@@ -5,8 +5,8 @@ CREATE PROCEDURE EVENT_DISPLAY(
 	 )
     BEGIN
         SELECT * 
-	FROM Event
-	WHERE EventId IN 
+	FROM Event e NATURAL JOIN Assign a
+	WHERE e.EventId IN 
 			(
 			SELECT EventId
 			FROM CreateEvent
