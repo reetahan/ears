@@ -75,14 +75,52 @@ crossorigin="anonymous">
 <body>
 
 <div class="container">
-  <div class="card-deck" >
+  <div class="card-deck">
+    <div class="card border-dark mb-3"><!--start of the edit card-->
+	<p class="card-body text-center">Add New Events to Your Calendar!</p>
+	New Event Name
+        <input type="text" id="InsertEventName" value="">
+	Your UserName
+	<input type="text" id="userId" value=""> 
+        New Event Date <br>
+	(YYYY-MM-DD HH:MM format, 24-hours time)
+        <input type="text" id="InsertEventDate" value=""> 
+        New Event Description
+        <input type="text" id="eventDescription" value="">
+        <button type="button" onclick="insert_row()"> Add Event! </button>
+	<p id="insert_status" value=""></p>
+	<p class="card-body text-center"> Edit Your Event</p>
+	Event Name
+	<input type="text" id="EditEventName" value="">
+	Event Date<br>
+	(MM-DD-YYYY HH:MM format, 24-hour time)
+	<input type="text" id="EditEventDate" value="">
+	<button type="button" onclick="edit_event()">Edit!</button>
+	<p id="edit_status" value=""></p>
+	<p class="card-body text-center">Delete Your Event</p>
+	Event Name
+        <input type="text" id="DeleteEventName" value="">
+        Event Date
+        <input type="text" id="DeleteEventDate" value="">
+        <button type="button" onclick="delete_event()">Delete!</button>
+	<p id="delete_status" value=""></p>
+	<script src="calendar_receive_event.js"></script>
+    </div> <!--end of edit event-->
     <div class="card border-dark mb-3"> <!-- Start of the first card-->
       <h1 class="card-title text-center" id="today">Today is: </h1>
       <div class="card-body text-center">
         <p class="card-text" id="daily_event"></p>
-      </div>
+      	<script src="calendar_receive_event.js"></script>
+	</div>
+	<div class="card-body text-center">
+	<p>Fun Facts</p>
+        <button onclick="average_event()">Click!</button>
+        <p id="avg_event" value =""></p>
+        <button onclick="num_friends()">Click!</button>
+        <p id="num_friends" value=""></p>
+	<script src="calendar_receive_event.js"></script>
+	</div>
     </div> <!-- End of the first card-->
-    
     <div class="card border-dark mb-3"> <!-- Start of the second card-->
           <style>
               * {box-sizing: border-box;}
@@ -227,12 +265,10 @@ crossorigin="anonymous">
                 <button type="button" id="30" onclick="display_event(30)">30</button>
                 <button type="button" id="31" onclick="display_event(30)">31</button>
               </ul>
-              <script src="calendar_receive_event.js"></script>
+		<script src="calendar_receive_event.js"></script>
     </div> <!-- End of the second card-->
-  </div>
+   </div>
 </div>
-
-</body>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../assets/dist/js/bootstrap.bundle.min.js"></script>

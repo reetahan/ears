@@ -79,14 +79,21 @@ crossorigin="anonymous">
     <div class="container">
         <div class="card-deck" >
           <div class="card border-dark mb-3"> <!-- Start of the first card-->
-            <h1 class="card-title text-center" id="course_list">Hello, </h1>
+            <h1 class="card-title text-center">Generate Recommendations!</h1>
             <div class="card-body text-center">
-              <p class="card-text" id="recommendation">This will display the recommended courses</p>
+		<p>Instruction: In order to generate the recommendation, write few courses that you are interested in. Then click generate button to generate the courses, and when "generated" text appears, you can click display button to display the generated courses.</p>
+		<p>In which courses are you interested in? (ex:CS411,CS450)</p><br>
+		<input type="string" id="rec_input" value=""></input>
+	    	<button id="generate" onclick="generate_recommendations()">generate!</button>
+              	<script src="recommendation.js"></script>
+		<p class="card-text" id="generate_status"></p>
 	      </div>
           </div> <!-- End of the first card-->
           <div class="card border-dark mb-3"> <!-- Start of the second card-->
-            <h1 class="card-title text-center" id="course_list_detail">Hello, </h1>
+            <h1 class="card-title text-center" id="course_list_detail">Your Recommended Courses!</h1>
             <div class="card-body text-center">
+		<button onclick="display()">display!</button>
+                <script src="recommendation.js"></script>
               <p class="card-text" id="recommendation">This will display the recommended courses</p>
             </div>
           </div> <!-- End of the second card-->

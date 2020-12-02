@@ -1,4 +1,4 @@
-const url = "http://earsapp411.web.illinois.edu/api";
+const url = "/api";
 
 function sendPostRequest(params) {
   opts = {
