@@ -4,6 +4,9 @@ module.exports = {
       case "Display":
         await displayCourse(req, res);
         break;
+      case "SearchByName":
+        await searchByName(req, res);
+        break;
       default:
         res.send("Invalid Query");
     }
@@ -56,6 +59,24 @@ async function displayCourse(req, res) {
     res.send(coursesWithLinks);
   } catch (outerException) {
     global.log("Course Display All Failed with error %s", outerException);
+    res.send("Error in query");
+    return;
+  }
+}
+
+async function searchByName(req, res) {
+  if (!req.session.loggedin) {
+    res.send("User Not Logged In");
+    return;
+  }
+  let UserId = req.session.UserId;
+  let courseName = req.query.courseName;
+  let sql = `CALL QUERY_COURSE_BY_NAME(?, ?)`;
+  try {
+    let coursesResponse = await global.connectionAsyncQuery(sql, [UserId, courseName]);
+    res.send(coursesResponse[0][0]);
+  } catch (outerException) {
+    global.log("Course Search by name failed with error %s", outerException);
     res.send("Error in query");
     return;
   }

@@ -37,7 +37,7 @@ crossorigin="anonymous">
     <script src="buttons.js"></script>
     <script src="classes.js"></script>
   </head>
-  <body>
+  <body onload="getClasses()">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <a class="navbar-brand" href="login.html">EARS</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,70 +68,68 @@ crossorigin="anonymous">
 <main role="main" class="container">
 
   <div class="starter-template">
-    <div class="container">
-      <div class="row">
-          <div class="col-lg-12">
-            <div class="card" style="background-color: lavender;">
-              <img class="card-img-top" src="holder.js/100x180/" alt="">
-              <div class="card-body" id="class-body">
-                <div>
-                  <h4 class="card-title" id="class-title">Class Title</h4>
-                  <h5 id="class-professor">Class Professor</h5>
-                <hr>
-                  <p class="card-text" id = "class-body"></p>
-                  Link title <button type="button">Go to link</button>
-                </div>
-              </div>
-            </div>
-          </div>
-      </div>
-    </div>
       <div class="container">
         <div class="row">
-          <div class="col-md-6">
-            <div class="card" style="background-color: rgb(214, 248, 236);">
-              <img class="card-img-top" src="holder.js/100x180/" alt="">
-              <div class="card-body" id="class-body">
-                <div>
-                  <h4 class="card-title">Events</h4>
-                  <p class="card-text" id = "events-body">List out events here</p>
+            <div class="col-md-6">
+              <div class="card" style="background-color: lavender;">
+                <img class="card-img-top" src="holder.js/100x180/" alt="">
+                <div class="card-body">
+                  <div>
+                    <h4 class="card-title" id="class-title">Classes</h4>
+                  <hr>
+                  <div id="class-body" align="left">
+  
+                  </div>
+                  </div>
                 </div>
-                <br>
-                <hr>
-              <div>
-                Event Date to Search:
-                  <input type="text" id="searcheventDate" value=""> <br>
-                  <button type="submit">Search</button>
-                  <p>No results yet</p>
-                  <button type="button">Edit Event</button> 
-                  <button type="button">Delete Event</button>
-              </div>
               </div>
             </div>
-          </div>
           <div class="col-md-6">
             <div class="card" style="background-color: rgb(247, 217, 207);">
               <img class="card-img-top" src="holder.js/100x180/" alt="">
               <div class="card-body" id="class-body">
                 
                 <div>
-                  <h4 class="card-title">Add Link</h4>
-                  Name
-                  <input type="text" id="createEventName" value=""> <br>
-                  Link
-                  <input type="text" id="createEventDate" value=""> <br>
-                  <button type="button">Add</button>
-                  <br>
+                  <h4 class="card-title">Course Search</h4>
+                  Course Name
+                  <input type="text" id="courseSearchName" value=""> <br>
+                  <button type="button" onclick="searchClasses()">Search</button> <br>
+                  <p id="searchResults" align="left"></p>
                 </div>
                 <br>
                 <hr>
                 <div>
-                  Link Name to Edit:
-                    <input type="text" id="searcheventDate" value=""> <br>
-                    <button type="submit">Search</button>
-                    <p>No results yet</p>
-                    <button type="button">Edit Link</button> 
-                    <button type="button">Delete Link</button>
+                  <h4 class="card-title">Course Add</h4>
+                  Course Name <input type="text" id="courseAddName" value=""> <br>
+                  Meeting Time <input type="text" id="courseAddMeetingTime" value="" placeholder="mm-dd-yyyy HH:mm"> <br>
+                  Professor <input type="text" id="courseAddProfessor" value=""> <br>
+                  <button type="button" onclick="insertClass()">Add!</button> <br>
+                </div>
+                <br>
+                <hr>
+                <div>
+                  <h4 class="card-title">Course Update</h4>
+                  Current Courses <select id="courseUpdateDropDown"></select> </br>
+                  New Course Name <input type="text" id="courseUpdateName" value=""> <br>
+                  New Meeting Time <input type="text" id="courseUpdateMeetingTime" value="" placeholder="mm-dd-yyyy HH:mm"> <br>
+                  New Professor <input type="text" id="courseUpdateProfessor" value=""> <br>
+                  <button type="button" onclick="updateClass()">Update!</button> <br>
+                </div>
+                <br>
+                <hr>
+                <div>
+                  <h4 class="card-title">Course Delete</h4>
+                  Current Courses <select id="courseDeleteDropDown"></select> </br>
+                  <button type="button" onclick="deleteCourse()">Delete!</button> <br>
+                </div>
+                <br>
+                <hr>
+                <div>
+                  <h4 class="card-title">Add Link!</h4>
+                  Current Courses <select id="addLinkDropDown"></select> </br>
+                  Tag <input type="text" id="addLinkTag" value=""> <br>
+                  Link <input type="text" id="addLinkLink" value=""> <br>
+                  <button type="button" onclick="addLink()">Add Link!</button> <br>
                 </div>
               </div>
             </div>
